@@ -1,10 +1,11 @@
 Imports System.IO
-Imports ImportStudentDataVB.Db.StudentBreakDownDb.Models
+Imports ImportStudentDataVB.BaseDb
+Imports ImportStudentDataVB.StudentEnrolmentsByLevelOfStudyImporter.DbModels
 Imports Mkb.DapperRepo.Repo
 
-Namespace Db.StudentBreakDownDb
+Namespace StudentEnrolmentsByLevelOfStudyImporter
     Public Class StudentEnrolmentsByLevelOfStudyImporter
-        Implements IImportDataToDb
+        Implements IImporter
         Private Property LookUp As Dictionary(of Type, Dictionary(Of String, BaseLookUpTable))
         Private ReadOnly Property Repo As SqlRepo
 
@@ -13,17 +14,17 @@ Namespace Db.StudentBreakDownDb
             Me.Repo = repo
         End Sub
 
-        Public readonly Property Name() As String Implements IImportDataToDb.Name
+        Public readonly Property Name() As String Implements IImporter.Name
             Get
                 Return NameOf(StudentEnrolmentsByLevelOfStudyImporter)
             End Get
         End Property
 
-        Public Sub ImportCsv_BuildDb() Implements IImportDataToDb.BuildDb
-            repo.Execute(File.ReadAllText("Db/StudentBreakDownDb/SqlToCreateDb/Create.sql"))
+        Public Sub ImportCsv_BuildDb() Implements IImporter.BuildDb
+            repo.Execute(File.ReadAllText("StudentEnrolmentsByLevelOfStudyImporter/SqlToCreateDb/Create.sql"))
         End Sub
 
-        Public Sub ImportDataFromFile(location as String) Implements IImportDataToDb.ImportDataFromFile
+        Public Sub ImportDataFromFile(location as String) Implements IImporter.ImportDataFromFile
 
             if File.Exists(location) = False Then
                 Console.Write("input data does not exist")

@@ -17,6 +17,9 @@
       <None Update="Db\StudentBreakDownDb\SqlToCreateDb\Create.sql">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="StudentEnrolmentsByLevelOfStudyImporter\SqlToCreateDb\Create.sql">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

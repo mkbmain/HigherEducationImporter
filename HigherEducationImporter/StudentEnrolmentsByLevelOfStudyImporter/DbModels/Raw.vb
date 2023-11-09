@@ -1,4 +1,4 @@
-Namespace Db.StudentBreakDownDb.Models
+Namespace StudentEnrolmentsByLevelOfStudyImporter.DbModels
     Public Class Raw
         Public Property Id As Integer?
         Public Property LevelOfStudyId As Integer

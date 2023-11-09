@@ -1,7 +1,7 @@
 Imports System.Runtime.CompilerServices
 Imports Mkb.DapperRepo.Repo
 
-Namespace Db
+Namespace BaseDb
     Public Module DbRepoExtensions
         <Extension()>
         public Function GetAllOfTAsLookup (of T as BaseLookUpTable)(repo as SqlRepo) _
