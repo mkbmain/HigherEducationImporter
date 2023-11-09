@@ -10,7 +10,6 @@ Namespace Db.StudentBreakDownDb
 
         Public Sub New(repo as SqlRepo)
             Me.Repo = repo
-            LookUp = PreloadDbLookups(repo)
         End Sub
 
         Public readonly Property Name() As String Implements IImportDataToDb.Name
@@ -24,6 +23,7 @@ Namespace Db.StudentBreakDownDb
         End Sub
         
         Public Sub ImportDataFromFile(location as String) Implements IImportDataToDb.ImportDataFromFile
+            LookUp = PreloadDbLookups(repo)
             if File.Exists(location) = False Then
                 Console.Write("input data does not exist")
                 Return
