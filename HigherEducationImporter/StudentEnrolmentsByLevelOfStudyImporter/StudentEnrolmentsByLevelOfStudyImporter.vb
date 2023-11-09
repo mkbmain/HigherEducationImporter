@@ -32,15 +32,15 @@ Namespace StudentEnrolmentsByLevelOfStudyImporter
             End If
 
             for Each item in _
-                GetRowsOfT (of Raw)(location, function(line)  LineToRaw(line, repo, LookUp),18) _
+                GetRowsOfT (of StudentEnrolmentsByLevel)(location, function(line)  LineToStudentEnrolments(line, repo, LookUp),18) _
                 .Where(Function(e) e isnot nothing).Chunk(250)
                 BulkInsertRaw(item, repo)
             Next
         End Sub
 
-        private Shared Sub BulkInsertRaw(raws As IEnumerable(Of Raw), repo As SqlRepo)
+        private Shared Sub BulkInsertRaw(raws As IEnumerable(Of StudentEnrolmentsByLevel), repo As SqlRepo)
             Const query =
-                      "insert into Raw (LevelOfStudyId, FirstYearMarkerId, ModeOfStudyId, CountryId, SexId, DomicileId, AcademicYearId, Number, Percentage) values "
+                      "insert into StudentEnrolments (LevelOfStudyId, FirstYearMarkerId, ModeOfStudyId, CountryId, SexId, DomicileId, AcademicYearId, Number, Percentage) values "
             dim sqlValues = raws.Select(Function(e) _
                                            $"({e.LevelOfStudyId},{e.FirstYearMarkerId},{e.ModeOfStudyId _
                                                },{e.CountryId}," +
@@ -50,13 +50,13 @@ Namespace StudentEnrolmentsByLevelOfStudyImporter
             repo.Execute(query + String.Join(",", sqlValues))
         End Sub
 
-        private Shared Function LineToRaw(line as String, repo As SqlRepo,
-                                          lookup As Dictionary(Of Type,Dictionary(Of String,BaseLookUpTable))) As Raw
+        private Shared Function LineToStudentEnrolments(line as String, repo As SqlRepo,
+                                          lookup As Dictionary(Of Type,Dictionary(Of String,BaseLookUpTable))) As StudentEnrolmentsByLevel
             dim parts as String() = line.Split(",")
             if parts.Length <> 9 Then
                 Return Nothing
             End If
-            Return new Raw With{
+            Return new StudentEnrolmentsByLevel With{
                 .LevelOfStudyId = repo.FindOrCreate ( of LevelOfStudy)(parts(0), lookup),
                 .FirstYearMarkerId =repo.FindOrCreate ( of FirstYearMarker)(parts(1), lookup),
                 .ModeOfStudyId =repo.FindOrCreate ( of ModeOfStudy)(parts(2), lookup),

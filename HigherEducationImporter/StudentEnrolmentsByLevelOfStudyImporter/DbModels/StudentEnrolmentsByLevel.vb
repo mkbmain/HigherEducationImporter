@@ -1,5 +1,8 @@
+Imports Mkb.DapperRepo.Attributes
+
 Namespace StudentEnrolmentsByLevelOfStudyImporter.DbModels
-    Public Class Raw
+    <SqlTableName("StudentEnrolments")>
+    Public Class StudentEnrolmentsByLevel
         Public Property Id As Integer?
         Public Property LevelOfStudyId As Integer
         Public Property FirstYearMarkerId As Integer

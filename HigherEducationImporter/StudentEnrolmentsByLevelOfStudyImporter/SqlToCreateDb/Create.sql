@@ -55,31 +55,31 @@ create table IF NOT EXISTS AcademicYear
     Name Varchar(50)
 );
 
-create table IF NOT EXISTS Raw
+create table IF NOT EXISTS StudentEnrolments
 (
     Id                integer
-        constraint RawData_pk
+        constraint StudentEnrolmentData_pk
             primary key autoincrement,
     LevelOfStudyId    integer not null
-        constraint RawData_LevelOfStudy_fk
+        constraint StudentEnrolmentData_LevelOfStudy_fk
             references LevelOfStudy,
     FirstYearMarkerId integer not null
-        constraint RawData_FirstYearMarker_fk
+        constraint StudentEnrolmentData_FirstYearMarker_fk
             references FirstYearMarker,
     ModeOfStudyId     integer not null
-        constraint RawData_ModeOfStudy_fk
+        constraint StudentEnrolmentData_ModeOfStudy_fk
             references ModeOfStudy,
     CountryId         integer not null
-        constraint RawData_Country_fk
+        constraint StudentEnrolmentData_Country_fk
             references Country,
     SexId             integer not null
-        constraint RawData_Sex_fk
+        constraint StudentEnrolmentData_Sex_fk
             references Sex,
     DomicileId        integer not null
-        constraint RawData_Domicile_fk
+        constraint StudentEnrolmentData_Domicile_fk
             references Domicile,
     AcademicYearId    integer not null
-        constraint RawData_AcademicYear_fk
+        constraint StudentEnrolmentData_AcademicYear_fk
             references AcademicYear,
     Number            integer not null,
     Percentage        decimal not null
@@ -96,7 +96,7 @@ select LOS.Name as LevelOfStudy,
        AY.Name  as AcademicYear,
        Number,
        Percentage
-from Raw r
+from StudentEnrolments r
          inner join AcademicYear AY on AY.Id = r.AcademicYearId
          inner join Country C on r.CountryId = C.Id
          inner join Domicile D on r.DomicileId = D.Id
