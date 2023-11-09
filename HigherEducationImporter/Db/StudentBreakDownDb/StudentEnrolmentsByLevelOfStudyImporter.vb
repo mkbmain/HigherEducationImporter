@@ -3,7 +3,7 @@ Imports ImportStudentDataVB.Db.StudentBreakDownDb.Models
 Imports Mkb.DapperRepo.Repo
 
 Namespace Db.StudentBreakDownDb
-    Public Class StudentBreakDownImporter
+    Public Class StudentEnrolmentsByLevelOfStudyImporter
         Implements IImportDataToDb
         Private Property LookUp As Dictionary(of Type, Dictionary(Of String, BaseLookUpTable))
         Private ReadOnly Property Repo As SqlRepo
@@ -15,7 +15,7 @@ Namespace Db.StudentBreakDownDb
 
         Public readonly Property Name() As String Implements IImportDataToDb.Name
             Get
-                Return NameOf(StudentBreakDownImporter)
+                Return NameOf(StudentEnrolmentsByLevelOfStudyImporter)
             End Get
         End Property
 

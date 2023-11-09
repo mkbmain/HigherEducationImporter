@@ -10,7 +10,7 @@ Module Program
         dim serviceCollection as ServiceCollection = New ServiceCollection()
         dim singleInstance = new SqliteConnection("Data Source=" + connection)
         serviceCollection.AddSingleton(new SqlRepo(Function()singleInstance))
-        serviceCollection.AddScoped (of IImportDataToDb,StudentBreakDownImporter )
+        serviceCollection.AddScoped (of IImportDataToDb,StudentEnrolmentsByLevelOfStudyImporter )
         Return serviceCollection.BuildServiceProvider()
     End function
 
