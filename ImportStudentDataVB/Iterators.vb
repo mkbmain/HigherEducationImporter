@@ -3,13 +3,13 @@ Imports System.IO
 Public Module Iterators
     public Iterator Function GetRowsOfT (of T)(location as string,
                                                func as Func(Of string,T),
-                                               Optional skipFirstLine as Boolean = True) As IEnumerable(Of T)
+                                               Optional skipLine as integer = 1) As IEnumerable(Of T)
         ' ok maybe I am just being OTT here with a Func and a generic we could just return each line and let caller do whatever
 
         Using reader = new StreamReader(File.OpenRead(location))
-            if skipFirstLine AndAlso reader.ReadLine() = Nothing Then ' we skip first line as its headers
-                Return ' file empty
-            End If
+            For i = 0 to skipLine
+                reader.ReadLine()
+            Next
 
             Do
                 dim text = reader.ReadLine()

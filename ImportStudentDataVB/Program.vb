@@ -8,7 +8,8 @@ Module Program
     ''' Standard Args StudentBreakDownImporter "/home/mkb/CsvVB/StudentBreakDown2023.sqlite"  "/home/mkb/CsvVB/RawData.csv" 
     Private function BuildContainer(connection as String) as ServiceProvider
         dim serviceCollection as ServiceCollection = New ServiceCollection()
-        serviceCollection.AddSingleton(new SqlRepo(Function() new SqliteConnection("Data Source=" + connection)))
+        dim singleInstance = new SqliteConnection("Data Source=" + connection)
+        serviceCollection.AddSingleton(new SqlRepo(Function()singleInstance))
         serviceCollection.AddScoped (of IImportDataToDb,StudentBreakDownImporter )
         Return serviceCollection.BuildServiceProvider()
     End function
