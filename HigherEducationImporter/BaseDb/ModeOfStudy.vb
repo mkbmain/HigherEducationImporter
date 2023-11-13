@@ -1,6 +1,6 @@
-Imports ImportStudentDataVB.BaseDb
 
-Namespace StudentEnrolmentsByLevelOfStudyImporter.DbModels
+
+Namespace BaseDb
     Public Class ModeOfStudy
         inherits BaseLookUpTable
     End Class

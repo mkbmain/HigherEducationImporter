@@ -1,6 +1,6 @@
-Imports ImportStudentDataVB.BaseDb
 
-Namespace StudentEnrolmentsByLevelOfStudyImporter.DbModels
+
+Namespace BaseDb
     Public Class AcademicYear
         inherits BaseLookUpTable
     End Class
