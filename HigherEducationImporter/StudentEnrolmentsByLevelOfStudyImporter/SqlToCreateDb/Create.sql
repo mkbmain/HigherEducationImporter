@@ -6,6 +6,21 @@ create table IF NOT EXISTS LevelOfStudy
     Name Varchar(50)
 );
 
+create table IF NOT EXISTS ModeOfStudy
+(
+    Id   integer
+        constraint ModeOfStudy_pk
+            primary key autoincrement,
+    Name Varchar(50)
+);
+
+create table IF NOT EXISTS AcademicYear
+(
+    Id   integer
+        constraint AcademicYear_pk
+            primary key autoincrement,
+    Name Varchar(50)
+);
 
 create table IF NOT EXISTS FirstYearMarker
 (
@@ -15,13 +30,6 @@ create table IF NOT EXISTS FirstYearMarker
     Name Varchar(50)
 );
 
-create table IF NOT EXISTS ModeOfStudy
-(
-    Id   integer
-        constraint ModeOfStudy_pk
-            primary key autoincrement,
-    Name Varchar(50)
-);
 
 create table IF NOT EXISTS Country
 (
@@ -47,46 +55,38 @@ create table IF NOT EXISTS Domicile
     Name Varchar(50)
 );
 
-create table IF NOT EXISTS AcademicYear
-(
-    Id   integer
-        constraint AcademicYear_pk
-            primary key autoincrement,
-    Name Varchar(50)
-);
-
-create table IF NOT EXISTS StudentEnrolments
+create table IF NOT EXISTS StudentEnrolmentsByLevelOfStudy
 (
     Id                integer
-        constraint StudentEnrolmentData_pk
+        constraint StudentEnrolmentsByLevelOfStudy_pk
             primary key autoincrement,
     LevelOfStudyId    integer not null
-        constraint StudentEnrolmentData_LevelOfStudy_fk
+        constraint StudentEnrolmentsByLevelOfStudy_LevelOfStudy_fk
             references LevelOfStudy,
     FirstYearMarkerId integer not null
-        constraint StudentEnrolmentData_FirstYearMarker_fk
+        constraint StudentEnrolmentsByLevelOfStudy_FirstYearMarker_fk
             references FirstYearMarker,
     ModeOfStudyId     integer not null
-        constraint StudentEnrolmentData_ModeOfStudy_fk
+        constraint StudentEnrolmentsByLevelOfStudy_ModeOfStudy_fk
             references ModeOfStudy,
     CountryId         integer not null
-        constraint StudentEnrolmentData_Country_fk
+        constraint StudentEnrolmentsByLevelOfStudy_Country_fk
             references Country,
     SexId             integer not null
-        constraint StudentEnrolmentData_Sex_fk
+        constraint StudentEnrolmentsByLevelOfStudy_Sex_fk
             references Sex,
     DomicileId        integer not null
-        constraint StudentEnrolmentData_Domicile_fk
+        constraint StudentEnrolmentsByLevelOfStudy_Domicile_fk
             references Domicile,
     AcademicYearId    integer not null
-        constraint StudentEnrolmentData_AcademicYear_fk
+        constraint StudentEnrolmentsByLevelOfStudy_AcademicYear_fk
             references AcademicYear,
     Number            integer not null,
     Percentage        decimal not null
 );
 
 
-create view IF NOT EXISTS Readable as
+create view IF NOT EXISTS ReadableStudentEnrolmentsByLevel as
 select LOS.Name as LevelOfStudy,
        FYM.Name as FirstYearMarker,
        MOS.Name as ModeOfStudy,
@@ -96,7 +96,7 @@ select LOS.Name as LevelOfStudy,
        AY.Name  as AcademicYear,
        Number,
        Percentage
-from StudentEnrolments r
+from StudentEnrolmentsByLevelOfStudy r
          inner join AcademicYear AY on AY.Id = r.AcademicYearId
          inner join Country C on r.CountryId = C.Id
          inner join Domicile D on r.DomicileId = D.Id

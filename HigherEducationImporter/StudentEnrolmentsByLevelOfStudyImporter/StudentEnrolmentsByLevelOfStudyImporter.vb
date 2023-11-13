@@ -6,11 +6,9 @@ Imports Mkb.DapperRepo.Repo
 Namespace StudentEnrolmentsByLevelOfStudyImporter
     Public Class StudentEnrolmentsByLevelOfStudyImporter
         Implements IImporter
-        Private Property LookUp As Dictionary(of Type, Dictionary(Of String, BaseLookUpTable))
         Private ReadOnly Property Repo As SqlRepo
 
         Public Sub New(repo as SqlRepo)
-            LookUp = New Dictionary(Of Type,Dictionary(Of String,BaseLookUpTable))()
             Me.Repo = repo
         End Sub
 
@@ -32,7 +30,7 @@ Namespace StudentEnrolmentsByLevelOfStudyImporter
             End If
 
             for Each item in _
-                GetRowsOfT (of StudentEnrolmentsByLevel)(location, function(line)  LineToStudentEnrolments(line, repo, LookUp),18) _
+                GetRowsOfT (of StudentEnrolmentsByLevel)(location, function(line)  LineToStudentEnrolments(line, repo),18) _
                 .Where(Function(e) e isnot nothing).Chunk(250)
                 BulkInsertRaw(item, repo)
             Next
@@ -40,7 +38,7 @@ Namespace StudentEnrolmentsByLevelOfStudyImporter
 
         private Shared Sub BulkInsertRaw(raws As IEnumerable(Of StudentEnrolmentsByLevel), repo As SqlRepo)
             Const query =
-                      "insert into StudentEnrolments (LevelOfStudyId, FirstYearMarkerId, ModeOfStudyId, CountryId, SexId, DomicileId, AcademicYearId, Number, Percentage) values "
+                      "insert into StudentEnrolmentsByLevelOfStudy (LevelOfStudyId, FirstYearMarkerId, ModeOfStudyId, CountryId, SexId, DomicileId, AcademicYearId, Number, Percentage) values "
             dim sqlValues = raws.Select(Function(e) _
                                            $"({e.LevelOfStudyId},{e.FirstYearMarkerId},{e.ModeOfStudyId _
                                                },{e.CountryId}," +
@@ -50,20 +48,19 @@ Namespace StudentEnrolmentsByLevelOfStudyImporter
             repo.Execute(query + String.Join(",", sqlValues))
         End Sub
 
-        private Shared Function LineToStudentEnrolments(line as String, repo As SqlRepo,
-                                          lookup As Dictionary(Of Type,Dictionary(Of String,BaseLookUpTable))) As StudentEnrolmentsByLevel
+        private Shared Function LineToStudentEnrolments(line as String, repo As SqlRepo) As StudentEnrolmentsByLevel
             dim parts as String() = line.Split(",")
             if parts.Length <> 9 Then
                 Return Nothing
             End If
             Return new StudentEnrolmentsByLevel With{
-                .LevelOfStudyId = repo.FindOrCreate ( of LevelOfStudy)(parts(0), lookup),
-                .FirstYearMarkerId =repo.FindOrCreate ( of FirstYearMarker)(parts(1), lookup),
-                .ModeOfStudyId =repo.FindOrCreate ( of ModeOfStudy)(parts(2), lookup),
-                .CountryId =repo.FindOrCreate ( of Country)(parts(3), lookup),
-                .SexId = repo.FindOrCreate ( of Sex)(parts(4), lookup),
-                .DomicileId = repo.FindOrCreate ( of Domicile)(parts(5), lookup),
-                .AcademicYearId = repo.FindOrCreate ( of AcademicYear)(parts(6), lookup),
+                .LevelOfStudyId = repo.FindOrCreate ( of LevelOfStudy)(parts(0)),
+                .FirstYearMarkerId =repo.FindOrCreate ( of FirstYearMarker)(parts(1)),
+                .ModeOfStudyId =repo.FindOrCreate ( of ModeOfStudy)(parts(2)),
+                .CountryId =repo.FindOrCreate ( of Country)(parts(3)),
+                .SexId = repo.FindOrCreate ( of Sex)(parts(4)),
+                .DomicileId = repo.FindOrCreate ( of Domicile)(parts(5)),
+                .AcademicYearId = repo.FindOrCreate ( of AcademicYear)(parts(6)),
                 .Number = Integer.Parse(parts(7)),
                 .Percentage = Decimal.Parse(if (parts(8) = String.Empty, "0", parts(8).Replace("%", "")))}
         End Function

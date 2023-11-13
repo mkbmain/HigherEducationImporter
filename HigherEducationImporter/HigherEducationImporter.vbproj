@@ -20,6 +20,9 @@
       <None Update="StudentEnrolmentsByLevelOfStudyImporter\SqlToCreateDb\Create.sql">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
+      <None Update="StudentEnrolmentsBySubjectOfStudyImporter\SqlToCreateDb\Create.sql">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
