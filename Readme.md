@@ -13,4 +13,10 @@ Arguments <br/>
 ``StudentEnrolmentsByLevelOfStudyImporter "{sqliteDbLocation}"  "{RawDataFile}" ``
 
 
+
+## HE Student Enrolments By Subject Of Study Importer
+Arguments <br/>
+``StudentEnrolmentsBySubjectOfStudyImporter "{sqliteDbLocation}"  "{RawDataFile}" ``
+
+
 will implement more later
