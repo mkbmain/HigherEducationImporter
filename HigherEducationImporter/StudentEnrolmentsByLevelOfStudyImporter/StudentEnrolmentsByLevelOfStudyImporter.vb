@@ -12,7 +12,7 @@ Namespace StudentEnrolmentsByLevelOfStudyImporter
             Me.Repo = repo
         End Sub
 
-        Public readonly Property Name() As String Implements IImporter.Name
+        Public ReadOnly Property Name As String Implements IImporter.Name
             Get
                 Return NameOf(StudentEnrolmentsByLevelOfStudyImporter)
             End Get
@@ -29,10 +29,10 @@ Namespace StudentEnrolmentsByLevelOfStudyImporter
                 Return
             End If
 
-            for Each item in _
-                GetRowsOfT (of StudentEnrolmentsByLevel)(location, function(line)  LineToStudentEnrolments(line, repo),18) _
-                .Where(Function(e) e isnot nothing).Chunk(250)
-                BulkInsertRaw(item, repo)
+            For Each item In
+                GetRowsOfT(location, Function(line) LineToStudentEnrolments(line, Repo), 18) _
+                .Where(Function(e) e IsNot Nothing).Chunk(250)
+                BulkInsertRaw(item, Repo)
             Next
         End Sub
 
