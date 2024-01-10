@@ -6,9 +6,9 @@ Imports Mkb.DapperRepo.Repo
 
 Module Program
     ''' Standard Args StudentBreakDownImporter "/home/mkb/CsvVB/StudentBreakDown2023.sqlite"  "/home/mkb/CsvVB/RawData.csv" 
-    Private function BuildContainer(connection as String) as ServiceProvider
+    Private function BuildContainer(dbPath as String) as ServiceProvider
         dim serviceCollection as ServiceCollection = New ServiceCollection()
-        dim singleInstance = new SqliteConnection("Data Source=" + connection)
+        dim singleInstance = new SqliteConnection("Data Source=" + dbPath)
         serviceCollection.AddSingleton(new SqlRepo(Function()singleInstance))
         serviceCollection.AddScoped (of IImporter,StudentEnrolmentsByLevelOfStudyImporter.StudentEnrolmentsByLevelOfStudyImporter )
         serviceCollection.AddScoped (of IImporter,StudentEnrolmentsBySubjectOfStudyImporter.StudentEnrolmentsBySubjectOfStudyImporter )
