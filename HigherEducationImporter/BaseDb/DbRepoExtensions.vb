@@ -6,7 +6,7 @@ Namespace BaseDb
         Private Property LookUp As Dictionary(of Type, Dictionary(Of String, BaseLookUpTable)) = new Dictionary(of Type, Dictionary(Of String, BaseLookUpTable))
         
         <Extension()>
-        public Function GetAllOfTAsLookup (of T as BaseLookUpTable)(repo as SqlRepo) _
+        Private Function GetAllOfTAsLookup (of T as BaseLookUpTable)(repo as SqlRepo) _
             As Dictionary(Of String, BaseLookUpTable)
             Return repo.GetAll (of T).GroupBy(Function(e) e.Description) _
                 .ToDictionary(Function(e) e.Key, Function(e) cType(e.First(), BaseLookUpTable))
