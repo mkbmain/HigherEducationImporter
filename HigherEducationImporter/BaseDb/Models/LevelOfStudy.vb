@@ -1,6 +1,6 @@
 
 
-Namespace BaseDb
+Namespace BaseDb.Models
     Public Class LevelOfStudy
         inherits BaseLookUpTable
     End Class

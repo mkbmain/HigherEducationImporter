@@ -1,4 +1,5 @@
 Imports ImportStudentDataVB.BaseDb
+Imports ImportStudentDataVB.BaseDb.Models
 Imports Mkb.DapperRepo.Attributes
 
 Namespace StudentEnrolmentsBySubjectOfStudyImporter.DbModels

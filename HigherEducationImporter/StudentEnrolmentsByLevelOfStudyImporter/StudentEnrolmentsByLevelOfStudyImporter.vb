@@ -1,5 +1,6 @@
 Imports System.IO
 Imports ImportStudentDataVB.BaseDb
+Imports ImportStudentDataVB.BaseDb.Models
 Imports ImportStudentDataVB.StudentEnrolmentsByLevelOfStudyImporter.DbModels
 Imports Mkb.DapperRepo.Repo
 

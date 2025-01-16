@@ -1,6 +1,6 @@
 Imports Mkb.DapperRepo.Attributes
 
-Namespace BaseDb
+Namespace BaseDb.Models
     Public MustInherit Class BaseLookUpTable
          Public Property Id As Integer?
 

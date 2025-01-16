@@ -1,4 +1,5 @@
 Imports System.Runtime.CompilerServices
+Imports ImportStudentDataVB.BaseDb.Models
 Imports Mkb.DapperRepo.Repo
 
 Namespace BaseDb
