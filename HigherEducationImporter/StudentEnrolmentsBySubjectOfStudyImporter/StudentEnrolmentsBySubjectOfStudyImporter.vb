@@ -41,8 +41,7 @@ Namespace StudentEnrolmentsBySubjectOfStudyImporter
             Const query =
                       "insert into StudentEnrolmentsBySubjectOfStudy (CahLevelMarkerId, CAHLevelSubjectId, LevelOfStudyId, ModeOfStudyId, AcademicYearId, CategoryMarkerId, CategoryId, Number) values "
             Dim sqlValues = raws.Select(Function(e) _
-                                           $"({e.CahLevelMarkerId},{e.CAHLevelSubjectId},{e.LevelOfStudyId _
-                                               },{e.ModeOfStudyId}," +
+                                           $"({e.CahLevelMarkerId},{e.CAHLevelSubjectId},{e.LevelOfStudyId},{e.ModeOfStudyId}," +
                                            $"{e.AcademicYearId},{e.CategoryMarkerId},{e.CategoryId},{e.Number})")
 
             repo.Execute(query + String.Join(",", sqlValues))
