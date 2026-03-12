@@ -5,9 +5,11 @@ Public Module Iterators
                                                func as Func(Of string,T),
                                                Optional skipLine as integer = 1) As IEnumerable(Of T)
         ' ok maybe I am just being OTT here with a Func and a generic we could just return each line and let caller do whatever
-
+        If skipLine < 0 Then
+            skipLine = 0
+        End If
         Using reader = new StreamReader(File.OpenRead(location))
-            For i = 0 to skipLine
+            For i = 1 To skipLine
                 reader.ReadLine()
             Next
 
